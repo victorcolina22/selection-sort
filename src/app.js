@@ -57,15 +57,17 @@ window.onload = function() {
     input.value = "";
   });
 
-  const bubbleSort = arr => {
-    for (let i = 0; i < arr.length - 1; i++) {
-      for (let j = 0; j < arr.length - 1; j++) {
-        if (arr[j].card > arr[j + 1].card) {
-          let aux = arr[j];
-          arr[j] = arr[j + 1];
-          arr[j + 1] = aux;
+  const selectSort = arr => {
+    let min = 0;
+    for (let i = min; i < arr.length - 1; i++) {
+      for (let j = min + 1; j < arr.length; j++) {
+        if (arr[min].card > arr[j].card) {
+          let aux = arr[min];
+          arr[min] = arr[j];
+          arr[j] = aux;
         }
       }
+      min++;
     }
     return arr;
   };
@@ -77,7 +79,7 @@ window.onload = function() {
     document.querySelector(".sorting").querySelector("h1").style.display =
       "block";
 
-    bubbleSort(newArray);
+    selectSort(newArray);
     console.log(newArray);
 
     newArray.forEach(item => {
