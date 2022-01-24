@@ -11,8 +11,7 @@ window.onload = function() {
     number = document.querySelector(".number"),
     input = document.querySelector(".input"),
     add = document.querySelector(".add"),
-    sort = document.querySelector(".sort"),
-    reset = document.querySelector(".reset");
+    sort = document.querySelector(".sort");
 
   const cardsNumber = [
     "A",
@@ -30,8 +29,12 @@ window.onload = function() {
   ];
   const cardsSuit = ["spade", "heart", "club", "diamond"];
   let newArray = [];
+  let array = [];
 
   add.addEventListener("click", () => {
+    if (input.value === "") return;
+    reset();
+
     for (let i = 0; i < input.value; i++) {
       const randomNumber = Math.floor(Math.random() * cardsNumber.length);
       const numberSelected = cardsNumber[randomNumber];
@@ -55,18 +58,14 @@ window.onload = function() {
   });
 
   const bubbleSort = arr => {
-    let wall = arr.length - 1;
-    while (wall > 0) {
-      let index = 0;
-      while (index < wall) {
-        if (arr[index].card > arr[index + 1].card) {
-          let aux = arr[index];
-          arr[index] = arr[index + 1];
-          arr[index + 1] = aux;
+    for (let i = 0; i < arr.length - 1; i++) {
+      for (let j = 0; j < arr.length - 1; j++) {
+        if (arr[j].card > arr[j + 1].card) {
+          let aux = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = aux;
         }
-        index++;
       }
-      wall--;
     }
     return arr;
   };
@@ -77,6 +76,7 @@ window.onload = function() {
     document.querySelector(".sorting").style.display = "block";
     document.querySelector(".sorting").querySelector("h1").style.display =
       "block";
+
     bubbleSort(newArray);
     console.log(newArray);
 
@@ -93,12 +93,12 @@ window.onload = function() {
     });
   });
 
-  reset.addEventListener("click", () => {
+  const reset = () => {
     document.querySelectorAll(".table__card").forEach(item => {
       item.remove();
     });
     document.querySelector(".sorting").querySelector("h1").style.display =
       "none";
     newArray = [];
-  });
+  };
 };
